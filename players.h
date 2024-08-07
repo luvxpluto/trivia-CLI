@@ -17,7 +17,7 @@ struct Player{
     char* id;
     char* name;
     char* nickname;
-    char* mail;
+    char* email;
 };
 
 struct Node{
@@ -31,7 +31,7 @@ void viewPlayer(PlayersList *players);
 void deletePlayer(PlayersList *players);
 void updateName(PlayersList *players);
 void updateNickname(PlayersList *players);
-void updateMail(PlayersList *players);
+void updateEmail(PlayersList *players);
 Player getPlayerData();
 void createPlayer(PlayersList *players, Player p);
 void freePlayerList(PlayersList * player);
