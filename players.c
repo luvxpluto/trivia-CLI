@@ -116,7 +116,7 @@ void updateName(PlayersList *players) {
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
-            strcpy(i->Player.name, name);
+            i->Player.name = strdup(name);
             printf("Name changed successfully\n");
             return;
         }
@@ -137,7 +137,7 @@ void updateNickname(PlayersList *players) {
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
-            strcpy(i->Player.nickname, nickname);
+            i->Player.nickname = strdup(nickname);
             printf("Nickname changed successfully\n");
             return;
         }
@@ -158,7 +158,7 @@ void updateEmail(PlayersList *players) {
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
-            strcpy(i->Player.email, email);
+            i->Player.email = strdup(email);
             printf("Email changed successfully\n");
             return;
         }
@@ -174,7 +174,11 @@ Player getPlayerData(){
     getInput("Enter the player nickname: ",nickname,sizeof(nickname),"nickname");
     getInput("Enter the player email: ",email,sizeof(email),"email");
 
-    Player player = {id,name,nickname,email};
+    Player player;
+    player.id = strdup(id);
+    player.name = strdup(name);
+    player.nickname = strdup(nickname);
+    player.email = strdup(email);
     return player;
 }
 
