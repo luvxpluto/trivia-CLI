@@ -3,4 +3,4 @@ project(trivia_CLI C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(trivia_CLI main.c)
+add_executable(trivia_CLI main.c input.h players.c players.h input.c)
