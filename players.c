@@ -2,6 +2,7 @@
 // Created by Luvxpluto on 8/3/24.
 //
 #include "players.h"
+#include "input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -59,26 +60,10 @@ void viewPlayer(PlayersList *players){
         printf("No players registered\n");
         return;
     }
+
     char id[25];
-    while(1){
-        printf("Enter the player id\n");
-        if(fgets(id,sizeof(id),stdin) !=NULL){
-            size_t len = strlen(id);
-            if (len>0 && id[len-1]=='\n'){
-                id[len-1] = '\0';
-            }
-            if(strlen(id)==0){
-                printf("Enter a valid ID\n");
-            }
-            else{
-                break;
-            }
-        }
-        else{
-            printf("Error reading input");
-            return;
-        }
-    }
+    getInput("Enter the player ID: ",id,sizeof(id),"id");
+
     Node *i;
     for(i=players->start;i!=NULL;i=i->next){
         if(strcmp(id,i->Player.id)==0){
@@ -99,25 +84,7 @@ void deletePlayer(PlayersList *players) {
         return;
     }
     char id[25];
-    while (1) {
-        printf("Enter the player ID: ");
-        if (fgets(id, sizeof(id), stdin) != NULL) {
-            size_t len = strlen(id);
-            if (len > 0 && id[len - 1] == '\n') {
-                id[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid ID\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
-
+    getInput("Enter the player ID: ",id,sizeof(id),"id");
     Node *current = players->start, *previous = NULL;
     while (current != NULL) {
         if (strcmp(current->Player.id, id) == 0) {
@@ -137,51 +104,15 @@ void deletePlayer(PlayersList *players) {
 }
 
 void updateName(PlayersList *players) {
-    char id[25];
-    char name[50];
-
     if (players->start == NULL) {
         printf("No players registered\n");
         return;
     }
 
-    while (1) {
-        printf("Enter the player ID: ");
-        if (fgets(id, sizeof(id), stdin) != NULL) {
-            size_t len = strlen(id);
-            if (len > 0 && id[len - 1] == '\n') {
-                id[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid ID\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
-
-    while (1) {
-        printf("Enter the new name: ");
-        if (fgets(name, sizeof(name), stdin) != NULL) {
-            size_t len = strlen(name);
-            if (len > 0 && name[len - 1] == '\n') {
-                name[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid name\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
+    char id[25];
+    getInput("Enter the player ID: ",id,sizeof(id),"id");
+    char name[50];
+    getInput("Enter the new name: ",name,sizeof(name),"name");
 
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
@@ -195,57 +126,21 @@ void updateName(PlayersList *players) {
 }
 
 void updateNickname(PlayersList *players) {
-    char id[25];
-    char nickname[50];
-
     if (players->start == NULL) {
         printf("No players registered\n");
         return;
     }
 
-    while (1) {
-        printf("Enter the player ID: ");
-        if (fgets(id, sizeof(id), stdin) != NULL) {
-            size_t len = strlen(id);
-            if (len > 0 && id[len - 1] == '\n') {
-                id[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid ID\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
-
-    while (1) {
-        printf("Enter the new name: ");
-        if (fgets(nickname, sizeof(nickname), stdin) != NULL) {
-            size_t len = strlen(nickname);
-            if (len > 0 && nickname[len - 1] == '\n') {
-                nickname[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid name\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
+    char id[25];
+    char nickname[50];
+    getInput("Enter the player ID: ",id,sizeof(id),"id");
+    getInput("Enter the new nickname: ",nickname,sizeof(nickname),"nickname");
 
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
             strcpy(i->Player.nickname, nickname);
-            printf("Name changed successfully\n");
+            printf("Nickname changed successfully\n");
             return;
         }
     }
@@ -253,57 +148,21 @@ void updateNickname(PlayersList *players) {
 }
 
 void updateEmail(PlayersList *players) {
-    char id[25];
-    char email[50];
-
     if (players->start == NULL) {
         printf("No players registered\n");
         return;
     }
 
-    while (1) {
-        printf("Enter the player ID: ");
-        if (fgets(id, sizeof(id), stdin) != NULL) {
-            size_t len = strlen(id);
-            if (len > 0 && id[len - 1] == '\n') {
-                id[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid ID\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
-
-    while (1) {
-        printf("Enter the new name: ");
-        if (fgets(email, sizeof(email), stdin) != NULL) {
-            size_t len = strlen(email);
-            if (len > 0 && email[len - 1] == '\n') {
-                email[len - 1] = '\0';
-                len--;
-            }
-            if (len == 0) {
-                printf("Enter a valid name\n");
-            } else {
-                break;
-            }
-        } else {
-            printf("Error reading input\n");
-            return;
-        }
-    }
+    char id[25];
+    char email[50];
+    getInput("Enter the player ID: ",id,sizeof(id),"id");
+    getInput("Enter the new email: ",email,sizeof(email),"email");
 
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
             strcpy(i->Player.email, email);
-            printf("Name changed successfully\n");
+            printf("Email changed successfully\n");
             return;
         }
     }
