@@ -109,9 +109,8 @@ void updateName(PlayersList *players) {
         return;
     }
 
-    char id[25];
+    char id[25], name[50];
     getInput("Enter the player ID: ",id,sizeof(id),"id");
-    char name[50];
     getInput("Enter the new name: ",name,sizeof(name),"name");
 
     Node *i;
@@ -131,8 +130,7 @@ void updateNickname(PlayersList *players) {
         return;
     }
 
-    char id[25];
-    char nickname[50];
+    char id[25],nickname[50];
     getInput("Enter the player ID: ",id,sizeof(id),"id");
     getInput("Enter the new nickname: ",nickname,sizeof(nickname),"nickname");
 
@@ -153,8 +151,7 @@ void updateEmail(PlayersList *players) {
         return;
     }
 
-    char id[25];
-    char email[50];
+    char id[25],email[50];
     getInput("Enter the player ID: ",id,sizeof(id),"id");
     getInput("Enter the new email: ",email,sizeof(email),"email");
 
@@ -167,4 +164,21 @@ void updateEmail(PlayersList *players) {
         }
     }
     printf("Player not found\n");
+}
+
+Player getPlayerData(){
+    char id[25],name[50],nickname[30],email[50];
+
+    getInput("Enter the player ID: ",id,sizeof(id),"id");
+    getInput("Enter the player name: ",name,sizeof(name),"name");
+    getInput("Enter the player nickname: ",nickname,sizeof(nickname),"nickname");
+    getInput("Enter the player email: ",email,sizeof(email),"email");
+
+    Player player = {id,name,nickname,email};
+    return player;
+}
+
+void createPlayer(PlayersList *players){
+    Player player = getPlayerData();
+    addPlayer(players,player);
 }

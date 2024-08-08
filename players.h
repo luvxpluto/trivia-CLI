@@ -25,6 +25,7 @@ struct Node{
     Node *next;
 };
 
+PlayersList *newPlayersList(void);
 void addPlayer(PlayersList *players, Player p);
 void viewPlayers(PlayersList *players);
 void viewPlayer(PlayersList *players);
@@ -33,6 +34,6 @@ void updateName(PlayersList *players);
 void updateNickname(PlayersList *players);
 void updateEmail(PlayersList *players);
 Player getPlayerData();
-void createPlayer(PlayersList *players, Player p);
+void createPlayer(PlayersList *players);
 void freePlayerList(PlayersList * player);
 #endif //TRIVIA_CLI_PLAYERS_H
