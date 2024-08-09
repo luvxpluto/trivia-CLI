@@ -103,7 +103,7 @@ void deletePlayer(PlayersList *players) {
     printf("Player not found\n");
 }
 
-void updateName(PlayersList *players) {
+void updateName(PlayersList *players)  {
     if (players->start == NULL) {
         printf("No players registered\n");
         return;
