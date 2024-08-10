@@ -182,7 +182,48 @@ Player getPlayerData(){
     return player;
 }
 
+void addPlayerCSV(Player p){
+    FILE *file;
+    file = fopen("Players.csv","a");
+    fprintf(file,"%s,%s,%s,%s,\n",p.id,p.name,p.nickname,p.email);
+    fclose(file);
+}
+
+void loadPlayersFromCSV(PlayersList *players) {
+    FILE *file = fopen("Players.csv", "r");
+    if (file == NULL) {
+        fprintf(stderr, "Error opening file\n");
+        return;
+    }
+
+    char line[200];  // Buffer to hold each line from the file
+    while (fgets(line, sizeof(line), file)) {
+        Player p;
+        char *token;
+        // Read the ID
+        token = strtok(line, ",");
+        if (token) p.id = strdup(token);
+
+        // Read the name
+        token = strtok(NULL, ",");
+        if (token) p.name = strdup(token);
+
+        // Read the nickname
+        token = strtok(NULL, ",");
+        if (token) p.nickname = strdup(token);
+
+        // Read the email
+        token = strtok(NULL, ",");
+        if (token != NULL)p.email = strdup(token);
+
+        // Add the player to the list
+        addPlayer(players, p);
+    }
+    fclose(file);
+}
+
 void createPlayer(PlayersList *players){
     Player player = getPlayerData();
     addPlayer(players,player);
+    addPlayerCSV(player);
 }
