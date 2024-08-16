@@ -95,6 +95,7 @@ void deletePlayer(PlayersList *players) {
             }
             printf("The player %s was deleted\n", current->Player.id);
             free(current);
+            addAllPlayersCSV(players);
             return;
         }
         previous = current;
@@ -111,13 +112,14 @@ void updateName(PlayersList *players)  {
 
     char id[25], name[50];
     getInput("Enter the player ID: ",id,sizeof(id),"id");
-    getInput("Enter the new name: ",name,sizeof(name),"name");
 
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
+            getInput("Enter the new name: ",name,sizeof(name),"name");
             i->Player.name = strdup(name);
             printf("Name changed successfully\n");
+            addAllPlayersCSV(players);
             return;
         }
     }
@@ -132,13 +134,14 @@ void updateNickname(PlayersList *players) {
 
     char id[25],nickname[50];
     getInput("Enter the player ID: ",id,sizeof(id),"id");
-    getInput("Enter the new nickname: ",nickname,sizeof(nickname),"nickname");
 
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
+            getInput("Enter the new nickname: ",nickname,sizeof(nickname),"nickname");
             i->Player.nickname = strdup(nickname);
             printf("Nickname changed successfully\n");
+            addAllPlayersCSV(players);
             return;
         }
     }
@@ -153,13 +156,14 @@ void updateEmail(PlayersList *players) {
 
     char id[25],email[50];
     getInput("Enter the player ID: ",id,sizeof(id),"id");
-    getInput("Enter the new email: ",email,sizeof(email),"email");
 
     Node *i;
     for (i = players->start; i != NULL; i = i->next) {
         if (strcmp(i->Player.id, id) == 0) {
+            getInput("Enter the new email: ",email,sizeof(email),"email");
             i->Player.email = strdup(email);
             printf("Email changed successfully\n");
+            addAllPlayersCSV(players);
             return;
         }
     }
@@ -198,20 +202,32 @@ void addPlayerCSV(Player p){
     fclose(file);
 }
 
+void addAllPlayersCSV(PlayersList *players){
+    FILE *file ;
+    file = fopen("Players.csv","w");
+    for(Node *i = players->start; i != NULL; i = i->next){
+        fprintf(file,"%s,%s,%s,%s\n",i->Player.id,i->Player.name,i->Player.nickname,i->Player.email);
+    }
+    fclose(file);
+}
+
 void loadPlayersFromCSV(PlayersList *players) {
     FILE *file = fopen("Players.csv", "r");
 
+    // Check if the file exists
     if (file == NULL) {
+        // Create the file if it doesn't exist
         file = fopen("Players.csv", "a");
         if (file == NULL) {
             fprintf(stderr, "Error creating file\n");
             return;
         }
         fclose(file);
-        return;
+        return; // Exit after creating an empty file
     }
 
-    char line[200];
+    // Proceed if the file is successfully opened for reading
+    char line[200];  // Buffer to hold each line from the file
     while (fgets(line, sizeof(line), file)) {
         Player p;
         char *token;

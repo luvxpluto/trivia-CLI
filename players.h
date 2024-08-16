@@ -38,4 +38,5 @@ void createPlayer(PlayersList *players);
 void loadPlayersFromCSV(PlayersList *players);
 void freePlayerList(PlayersList * player);
 int searchId(PlayersList *players, char *id);
+void addAllPlayersCSV(PlayersList *players);
 #endif //TRIVIA_CLI_PLAYERS_H
