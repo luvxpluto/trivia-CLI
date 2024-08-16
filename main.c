@@ -6,6 +6,6 @@
 
 int main(){
     PlayersList *players = newPlayersList();
-
+    loadPlayersFromCSV(players);
     handleMainMenu(players);
 }

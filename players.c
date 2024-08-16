@@ -166,10 +166,19 @@ void updateEmail(PlayersList *players) {
     printf("Player not found\n");
 }
 
-Player getPlayerData(){
+Player getPlayerData(PlayersList *players){
     char id[25],name[50],nickname[30],email[50];
 
-    getInput("Enter the player ID: ",id,sizeof(id),"id");
+    int validInput = 0;
+    while(!validInput){
+        getInput("Enter the player ID: ", id, sizeof(id), "id");
+        if (searchId(players, id)) {
+            printf("There's already a player with that ID, please enter a different one.\n");
+        } else {
+            validInput = 1;
+        }
+    }
+
     getInput("Enter the player name: ",name,sizeof(name),"name");
     getInput("Enter the player nickname: ",nickname,sizeof(nickname),"nickname");
     getInput("Enter the player email: ",email,sizeof(email),"email");
@@ -185,21 +194,31 @@ Player getPlayerData(){
 void addPlayerCSV(Player p){
     FILE *file;
     file = fopen("Players.csv","a");
-    fprintf(file,"%s,%s,%s,%s,\n",p.id,p.name,p.nickname,p.email);
+    fprintf(file,"%s,%s,%s,%s\n",p.id,p.name,p.nickname,p.email);
     fclose(file);
 }
 
 void loadPlayersFromCSV(PlayersList *players) {
     FILE *file = fopen("Players.csv", "r");
+
     if (file == NULL) {
-        fprintf(stderr, "Error opening file\n");
+        file = fopen("Players.csv", "a");
+        if (file == NULL) {
+            fprintf(stderr, "Error creating file\n");
+            return;
+        }
+        fclose(file);
         return;
     }
 
-    char line[200];  // Buffer to hold each line from the file
+    char line[200];
     while (fgets(line, sizeof(line), file)) {
         Player p;
         char *token;
+
+        // Remove the newline character if present
+        line[strcspn(line, "\n")] = '\0';
+
         // Read the ID
         token = strtok(line, ",");
         if (token) p.id = strdup(token);
@@ -213,8 +232,8 @@ void loadPlayersFromCSV(PlayersList *players) {
         if (token) p.nickname = strdup(token);
 
         // Read the email
-        token = strtok(NULL, ",");
-        if (token != NULL)p.email = strdup(token);
+        token = strtok(NULL, "\n");
+        if (token) p.email = strdup(token);
 
         // Add the player to the list
         addPlayer(players, p);
@@ -222,8 +241,17 @@ void loadPlayersFromCSV(PlayersList *players) {
     fclose(file);
 }
 
+int searchId(PlayersList *players, char *id){
+    for(Node *i=players->start; i!=NULL; i = i->next){
+        if(strcmp(i->Player.id,id)==0){
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void createPlayer(PlayersList *players){
-    Player player = getPlayerData();
+    Player player = getPlayerData(players);
     addPlayer(players,player);
     addPlayerCSV(player);
 }

@@ -33,7 +33,9 @@ void deletePlayer(PlayersList *players);
 void updateName(PlayersList *players);
 void updateNickname(PlayersList *players);
 void updateEmail(PlayersList *players);
-Player getPlayerData();
+Player getPlayerData(PlayersList *players);
 void createPlayer(PlayersList *players);
+void loadPlayersFromCSV(PlayersList *players);
 void freePlayerList(PlayersList * player);
+int searchId(PlayersList *players, char *id);
 #endif //TRIVIA_CLI_PLAYERS_H
