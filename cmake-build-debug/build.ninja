@@ -70,6 +70,12 @@ build CMakeFiles/trivia_CLI.dir/menu.c.o: C_COMPILER__trivia_CLI_Debug /Users/es
   OBJECT_DIR = CMakeFiles/trivia_CLI.dir
   OBJECT_FILE_DIR = CMakeFiles/trivia_CLI.dir
 
+build CMakeFiles/trivia_CLI.dir/questions.c.o: C_COMPILER__trivia_CLI_Debug /Users/esteban/Desktop/CODE/trivia-CLI/questions.c || cmake_object_order_depends_target_trivia_CLI
+  DEP_FILE = CMakeFiles/trivia_CLI.dir/questions.c.o.d
+  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu99
+  OBJECT_DIR = CMakeFiles/trivia_CLI.dir
+  OBJECT_FILE_DIR = CMakeFiles/trivia_CLI.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target trivia_CLI
@@ -78,7 +84,7 @@ build CMakeFiles/trivia_CLI.dir/menu.c.o: C_COMPILER__trivia_CLI_Debug /Users/es
 #############################################
 # Link the executable trivia_CLI
 
-build trivia_CLI: C_EXECUTABLE_LINKER__trivia_CLI_Debug CMakeFiles/trivia_CLI.dir/main.c.o CMakeFiles/trivia_CLI.dir/players.c.o CMakeFiles/trivia_CLI.dir/input.c.o CMakeFiles/trivia_CLI.dir/menu.c.o
+build trivia_CLI: C_EXECUTABLE_LINKER__trivia_CLI_Debug CMakeFiles/trivia_CLI.dir/main.c.o CMakeFiles/trivia_CLI.dir/players.c.o CMakeFiles/trivia_CLI.dir/input.c.o CMakeFiles/trivia_CLI.dir/menu.c.o CMakeFiles/trivia_CLI.dir/questions.c.o
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/trivia_CLI.dir
   POST_BUILD = :
